@@ -1,0 +1,180 @@
+<script type="text/javascript">
+	
+
+	$(function() {
+		
+		var formObj=$("#admin_user_searchForm").form();
+		function serializeObj(form){
+			console.info(form);
+			/*  将form表单的值序列化成对象  */
+			var o={};
+			$.each(form.serializeArray() ,function(index){
+				if(o[this['name']]){
+					o[this['name']]=o[this['name']]+","+this['value'];
+				}else{
+					o[this['name']]=this['value'];
+				}
+			});
+			console.log(o);
+			return o;
+		}
+		
+		
+		
+		$('#dg').datagrid({
+			url : 'gridData',
+			method : 'get',
+			// 			data : [ {
+			// 				"productid" : "FI-SW-01",
+			// 				"productname" : "Koi"
+			// 			}, {
+			// 				"productid" : "K9-DL-01",
+			// 				"productname" : "Dalmation"
+			// 			}, {
+			// 				"productid" : "RP-SN-01",
+			// 				"productname" : "Rattlesnake"
+			// 			}, {
+			// 				"productid" : "RP-LI-02",
+			// 				"productname" : "Iguana"
+			// 			}, {
+			// 				"productid" : "FL-DSH-01",
+			// 				"productname" : "Manx"
+			// 			}, {
+			// 				"productid" : "FL-DLH-02",
+			// 				"productname" : "Persian"
+			// 			}, {
+			// 				"productid" : "AV-CB-01",
+			// 				"productname" : "Amazon Parrot"
+			// 			} ],
+
+			//title : 'datagridTitle',
+			//iconCls : 'icon-save',
+			pagination : true,
+			pageSize : 10,
+			pageList : [ 10, 20, 40, 100 ],
+			fit : true,
+			fitColumns : true,
+			nowrap : false,
+			border : false,
+			idField : 'productid',
+			sortName : 'productname',
+			sortOrder : 'desc',
+			rownumbers : true,
+			ctrlSelect : true,
+			checkOnSelect : true,
+			columns : [ [ {
+				field : 'ck',
+				checkbox : true
+			}, {
+				field : 'productid',
+				title : '产品id',
+				sortable : true,
+				width : 100,
+			}, {
+				field : 'productname',
+				title : '名称',
+				sortable : true,
+				width : 100,
+			}, ] ],
+			//			toolbar:'#toolbar'
+			toolbar : [ {
+				text : '增加',
+				iconCls : 'icon-add',
+				handler : function() {
+
+				}
+			}, "-", {
+				text : '删除',
+				iconCls : 'icon-remove',
+				handler : function() {
+
+				}
+			}, "-", {
+				text : '修改',
+				iconCls : 'icon-edit',
+				handler : function() {
+
+				}
+			}, "-", {
+				text : '查询',
+				iconCls : 'icon-search',
+				handler : function() {
+
+				}
+			}, "-" ]
+		});
+		
+		//查询条件传递
+	$("#search").click(function () {
+		//alert(11);
+		$('#dg').datagrid('load',
+		// 	第一种方式，如果参数太多，容易出错
+		{
+			name: $("#name").val()
+		} 
+		//		serializeObj(formObj)  没实现。。。。。。。。。
+		);
+
+
+	});
+	
+	
+	
+	});
+	function re(){
+		alert(3333);
+		
+		//不带参数加载
+		$('#dg').datagrid('load',{});
+	}
+</script>
+<div class="easyui-layout" style="height: 130px;display: none">
+	<div region="north" split:"true" border="false" title="过滤"
+		style="height: 130px; overflow: hidden; >
+		
+				<form id="admin_user_searchForm" >
+					<table class="tableForm datagrid-toolbar"
+						style="width: 100%; height: 100%;border: 1px solid red; margin-bottom: 10px">
+						<tr>
+							<td>名字:</td>
+							<td><input id="name" name="name"></td>
+						</tr>
+						<tr>
+							<td>日期:</td>
+							<td><input name="createtime" class="easyui-datetimebox"
+								editable="false"></td>
+							<td>截止日期:</td>
+							<td><input name="endtime" class="easyui-datetimebox"
+								editable="false"></td>
+						</tr>
+						<tr>
+							<td><a href="javascript:void(0)" class="easyui-linkbutton" id="search">查询</a></td>
+							<td><a href="javascript:void(0)" class="easyui-linkbutton" onclick="re()">重置</a></td>
+						</tr>
+						
+					</table>
+		
+				</form>
+	</div>
+</div>
+<div class="easyui-layout" fit="true" border="false" style=" border: 1px solid black; ">
+	<div class="easyui-tabs" fit="true" border="false" >
+		<!-- 自定义center部分 -->
+		<div title="tableTitle" region="center" fit="true" border="false" style="border: 1px solid red;">
+			<table id="dg" ></table>
+		</div>
+	</div>
+</div>
+
+<div id="toolbar">
+	自定义toolbar
+	<form>
+		用户名:<input> 创建时间:<input>
+
+	</form>
+	<a class="easyui-linkbutton" iconCls="icon-add"> 增</a> <a
+		class="easyui-linkbutton" iconCls="icon-remove"> 删</a> <a
+		class="easyui-linkbutton" iconCls="icon-edit"> 改</a> <a
+		class="easyui-linkbutton" iconCls="icon-search"> 查</a>
+
+</div>

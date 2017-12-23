@@ -1,0 +1,47 @@
+
+
+<script type="text/javascript">
+	$(function(){
+		$('#tt').tree({  
+			url:"getmenu",
+			onLoadSuccess:function(node, data){  //加载完毕后的所有文件夹展开
+				var t=$(this);
+				if(data){
+					$(data).each(function(){
+						//if(this.state=='open'){
+							t.tree('collapseAll');
+						//}
+					});
+				}
+			},
+			onClick: function(node){
+				if($('#tt').tree('isLeaf',node.target)){
+					
+				
+				//alert(node.text);  // 在用户点击的时候提示
+				console.log(node);
+				$('#tab').tabs('add',{    
+				    title:node.text,
+				    href:'main.jsp',
+				//    content:'<iframe scrolling="no" frameborder="0"  src="' + main.html + '" style="width:100%;height:100%;"></iframe>',    
+				    closable:true,    
+				    tools:[{    
+				        iconCls:'icon-mini-refresh',    
+				        handler:function(){    
+				            alert('refresh');    
+				        }    
+				    }]
+				}); 
+				
+				};
+			}
+		});
+	});
+</script>
+
+<div id="west" class="easyui-layout" fit="true"
+	style="width: 400px; height: 400px;">
+	<ul id="tt" > </ul>  
+
+
+</div>

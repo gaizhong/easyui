@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>index</title>
+<script type="text/javascript" src="jquery-easyui-1.5/jquery.min.js"
+	charset="utf-8"></script>
+<script type="text/javascript"
+	src="jquery-easyui-1.5/jquery.easyui.min.js" charset="utf-8"></script>
+<!-- <script type="text/javascript"
+	src="jquery-easyui-1.5/plugins/jquery.validatebox.js"></script>
+<script type="text/javascript"
+	src="jquery-easyui-1.5/locale/easyui-lang-zh_CN.js"></script> -->
+<script type="text/javascript" src="js/jquery.validate.min.js"></script>
+<script type="text/javascript" src="js/messages_zh.js"></script>
+
+
+
+<link type="text/css" rel="stylesheet"
+	href="jquery-easyui-1.5/themes/default/easyui.css">
+<link type="text/css" rel="stylesheet"
+	href="jquery-easyui-1.5/themes/icon.css">
+
+
+<script type="text/javascript">
+	var loginAndReg;
+	var form;
+	$(function() {
+
+		$("#form").validate({
+			rules : {
+				name : {
+					required : true,
+					minlength : 3
+				}
+			},
+			messages : {
+				name : {
+					required : "用户名非空",
+					minlength : "最少三位"
+				}
+			}
+
+		});
+		
+		
+		
+		loginAndReg = $("#loginAndReg").dialog({
+			closable : false,
+			modal : true,
+			buttons : [ {
+				text : '登录',
+				handler : function() {
+					//ajax在第一个页面中，现在用form提交
+					form.submit();
+				}
+			}, {
+				text : '关闭',
+				handler : function() {
+					alert("取消")
+				}
+			} ]
+		});
+		//将普通表单转化成jqform
+		form = $("#form").form({
+			url : "login",
+			/* onSubmit : function() {
+				var aa= check();
+				alert(aa);
+				return false;
+			}, */
+			success : function(msg) {
+				if (msg == 'ok') {
+					$("#loginAndReg").dialog({
+						closed : 'true'
+					});
+					$.messager.show({
+						title : '我的消息',
+						msg : '消息将在3秒后关闭。',
+						timeout : 3000,
+						showType : 'slide'
+					});
+
+				}
+				if (msg == 'false') {
+					$.messager.alert("提示", "用户名或者密码不正确");
+				}
+			}
+		});
+
+		$(form).find('input').on('keyup', function(event) {
+			if (event.keyCode == '13') {
+				form.submit();
+			}
+		});
+		
+	});
+</script>
+
+</head>
+<body>
+	<div id="loginAndReg" title="用户登录" style="width: 500px; height: 300px;">
+		<form id="form" method="post">
+			<table>
+				<tr>
+					<th align="right">用户名：
+					<th />
+					<td align="left"><input name="name" type="text"
+						style="width: 300px"></td>
+				</tr>
+				<tr>
+					<th align="right">密码：
+					<th />
+					<td align="left"><input name="password" type="password"
+						style="width: 300px"></td>
+				</tr>
+
+			</table>
+
+		</form>
+
+	</div>
+
+
+</body>
+</html>

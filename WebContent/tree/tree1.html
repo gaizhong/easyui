@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="../jquery-easyui-1.5/jquery.min.js"
+	charset="utf-8"></script>
+<script type="text/javascript"
+	src="../jquery-easyui-1.5/jquery.easyui.min.js" charset="utf-8"></script>
+<script type="text/javascript"
+	src="../jquery-easyui-1.5/locale/easyui-lang-zh_CN.js"></script>
+<link type="text/css" rel="stylesheet"
+	href="../jquery-easyui-1.5/themes/default/easyui.css">
+<link type="text/css" rel="stylesheet"
+	href="../jquery-easyui-1.5/themes/icon.css">
+	
+	<!-- ztree   -->
+	  <link rel="stylesheet" href="../css/zTreeStyle.css" type="text/css">
+	<script type="text/javascript" src="../js/jquery.ztree.core-3.5.js"></script>
+	
+	<script type="text/javascript" >
+
+	
+	
+
+
+   
+  </script>
+	
+	
+	<!-- ztree   -->
+	
+	
+	<script type="text/javascript">
+	$(function(){
+		$('#tt').tree({  
+			url:"getmenu",
+			lines:true,
+			checkbox:true,
+			dnd:true,
+			onClick: function(node){
+				//alert(node.text);  // 在用户点击的时候提示
+			},
+ 			onLoadSuccess:function(node, data){  //加载完毕后的所有文件夹展开
+				var t=$(this);
+				if(data){
+					$(data).each(function(){
+						//if(this.state=='open'){
+							t.tree('collapseAll');
+						//}
+					});
+				}
+			}
+		}); 
+	});
+	function checked(){
+		var nodes = $('#tt').tree('getChecked');
+		alert(JSON.stringify(nodes));
+	}
+	
+	</script>
+	
+	
+
+
+</head>
+<body>
+111
+<div>
+	<ul id="tt"></ul>
+</div>
+<button onclick="checked()">获得选中节点</button>
+<div>
+
+<ul id="tree" class="ztree" style="width:260px; overflow:auto;"></ul>
+
+
+</div>
+</body>
+</html>

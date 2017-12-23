@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>第一个easyUI页面</title>
+<script type="text/javascript" src="jquery-easyui-1.5/jquery.min.js"
+	charset="utf-8"></script>
+<script type="text/javascript"
+	src="jquery-easyui-1.5/jquery.easyui.min.js" charset="utf-8"></script>
+<script type="text/javascript"
+	src="jquery-easyui-1.5/locale/easyui-lang-zh_CN.js"></script>
+<link type="text/css" rel="stylesheet"
+	href="jquery-easyui-1.5/themes/default/easyui.css">
+<link type="text/css" rel="stylesheet"
+	href="jquery-easyui-1.5/themes/icon.css">
+
+
+
+
+<script type="text/javascript">
+	$(function() {
+		$("#dd").dialog({
+			modal : false,
+			title:'ggg',
+			buttons:[{
+				text:'保存',
+				handler:function(){alert(22)}
+
+			},{
+				text:'关闭'
+			}]
+		});
+		//$.messager.alert("333","444");
+		$('#p').panel({    
+			  width:500,    
+			  height:350, 
+			  closed:true,
+			  title: 'My Panel',    
+			  tools: [{    
+			    iconCls:'icon-add',    
+			    handler:function(){alert('new')}    
+			  },{    
+			    iconCls:'icon-save',    
+			    handler:function(){alert('save')}    
+			  }]    
+			}); 
+		alert(0);
+		$('#p').panel('open',true);
+		
+	});
+	
+	
+</script>
+
+</head>
+<body style="text-align: center;">
+	<div id="dd" style="width: 400px; height: 200px;"
+		data-options="iconCls:'icon-save'">
+		dialog内容</div>
+
+<div id="p" style="padding:10px;">    
+    <p>panel content.</p>    
+    <p>panel content.</p>    
+</div>    
+   
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
